@@ -1,6 +1,9 @@
 button { 
   padding: 8px;
 }
+span.ok {
+  color: green;
+}
 * {
   font-family: Arial, Helvetica, sans-serif;
 }

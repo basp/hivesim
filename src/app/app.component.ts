@@ -15,7 +15,6 @@ import { Factories } from './factories';
 })
 export class AppComponent {
   title = 'hivesim';
-  rate = 5;
 
   state = new State();
 
@@ -28,7 +27,7 @@ export class AppComponent {
   systems: System[] = [this.nanoprobes, this.drones, this.cubes, this.factories, this.hints];
 
   constructor() {
-    let interval = 1000 / this.rate;
+    let interval = 1000 / this.state.rate;
     var prev = performance.now();
     setInterval(() => {
       let now = performance.now();

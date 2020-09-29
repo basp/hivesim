@@ -20,10 +20,10 @@
       <span *ngIf="sys.pps() > 0">({{sys.pps() | number}}/sec)</span>
     </h3>
     <button (click)="sys.buy()" [disabled]="!sys.enabled()">{{sys.bverb()}}</button>  
-    <div *ngIf="!sys.enabled()">
-      <p *ngFor="let cost of sys.costs()">
+    <p *ngFor="let cost of sys.costs()">
+      <span [class.ok]="sys.enabled()">
         Requires {{cost.amount | number}} {{cost.unit}} to {{sys.bverb()}}.
-      </p>  
-    </div>
+      </span>
+    </p>
   </div>
 </div>
