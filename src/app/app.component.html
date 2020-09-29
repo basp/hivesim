@@ -1,5 +1,5 @@
 <div *ngIf="state.hint">
-  <p>&gt; {{state.hint}}</p>
+  <p>&gt; <em>{{state.hint}}</em></p>
 </div>
 <div>
   <h2>{{nanoprobes.name()}}</h2>
@@ -19,9 +19,11 @@
       <span>{{sys.num() | number}} </span>
       <span *ngIf="sys.pps() > 0">({{sys.pps() | number}}/sec)</span>
     </h3>
-    <p *ngFor="let cost of sys.costs()">
-      Requires {{cost.amount | number}} {{cost.unit}} to {{sys.bverb()}}.
-    </p>
     <button (click)="sys.buy()" [disabled]="!sys.enabled()">{{sys.bverb()}}</button>  
+    <div *ngIf="!sys.enabled()">
+      <p *ngFor="let cost of sys.costs()">
+        Requires {{cost.amount | number}} {{cost.unit}} to {{sys.bverb()}}.
+      </p>  
+    </div>
   </div>
 </div>

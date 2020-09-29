@@ -45,9 +45,6 @@ class Hints implements System {
       this.s.hint = 'Eventually we can automate more.';
     }
     if (this.s.drones >= 10) {
-      this.s.hint = 'We need to keep going.';
-    }
-    if (this.s.drones >= 25) {
       this.s.hint = 'Cubes are sent into space to assimilate more drones.';
     }
     if (this.s.cubes >= 1) {
@@ -81,6 +78,9 @@ class Nanoprobes implements ResourceSystem {
   bverb() {
     return 'assemble';
   }
+  dverb() {
+    return 'assembles';
+  }
   update(t: number): void {
     this.s.nanoprobes += t * this.pps();
   }
@@ -88,7 +88,7 @@ class Nanoprobes implements ResourceSystem {
     return this.s.drones * nanoprobesPerDrone;
   }
   info() {
-    return `Nanoprobes are made by drones or you.`;
+    return `Nanoprobes are made by us.`;
   }
 }
 
@@ -128,6 +128,9 @@ class Drones implements ResourceSystem {
   bverb() {
     return 'assimilate';
   }
+  dverb() {
+    return 'assembles';
+  }
   update(t: number) {
     this.s.drones += t * this.pps();
   }
@@ -135,7 +138,7 @@ class Drones implements ResourceSystem {
     return this.s.cubes * 0.01;
   }
   info() {
-    return `Each drone generates ${nanoprobesPerDrone} nanoprobes/sec.`;
+    return `Each drone ${this.dverb()} ${nanoprobesPerDrone} nanoprobes/sec.`;
   }
 }
 
@@ -168,7 +171,7 @@ class Cubes implements ResourceSystem {
     if (this.show) {
       return true;
     }
-    if (this.s.drones < 5) {
+    if (this.s.drones < 10) {
       return false;
     }
     if (this.s.nanoprobes < 25) {
@@ -185,6 +188,9 @@ class Cubes implements ResourceSystem {
   bverb() {
     return 'construct';
   }
+  dverb() {
+    return 'assimilates';
+  }
   update(t: number) {
     this.s.cubes += t * this.pps();
   }
@@ -192,7 +198,7 @@ class Cubes implements ResourceSystem {
     return this.s.factories * 0.01;
   }
   info() {
-    return `Each cube generates ${dronesPerCube} drone/sec.`;
+    return `Each cube ${this.dverb()} ${dronesPerCube} drone/sec.`;
   }
 }
 
@@ -238,6 +244,9 @@ class Factories implements ResourceSystem {
   bverb(): string {
     return 'build';
   }
+  dverb(): string {
+    return 'constructs';
+  }
   update(t: number): void {
   }
   pps(): number {
@@ -247,7 +256,7 @@ class Factories implements ResourceSystem {
     return this.s.factories;
   }
   info() {
-    return `Each factory generates ${cubesPerFactory} cube/sec`;
+    return `Each factory ${this.dverb()} ${cubesPerFactory} cube/sec`;
   }
 }
 
