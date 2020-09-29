@@ -1,0 +1,27 @@
+<div *ngIf="state.hint">
+  <p>&gt; {{state.hint}}</p>
+</div>
+<div>
+  <h2>{{nanoprobes.name()}}</h2>
+  <p>{{nanoprobes.info()}}</p>
+  <h3>
+    <span>{{nanoprobes.num() | number}} </span>
+    <span *ngIf="nanoprobes.pps() > 0">({{nanoprobes.pps() | number}}/sec)</span>
+  </h3>
+  <button (click)="nanoprobes.buy()">{{nanoprobes.bverb()}}</button>
+</div>
+<div *ngFor="let sys of [drones, cubes, factories]">
+  <div *ngIf="sys.visible()">
+  <hr/>
+    <h2>{{sys.name()}}</h2>
+    <p>{{sys.info()}}</p>
+    <h3>
+      <span>{{sys.num() | number}} </span>
+      <span *ngIf="sys.pps() > 0">({{sys.pps() | number}}/sec)</span>
+    </h3>
+    <p *ngFor="let cost of sys.costs()">
+      Requires {{cost.amount | number}} {{cost.unit}} to {{sys.bverb()}}.
+    </p>
+    <button (click)="sys.buy()" [disabled]="!sys.enabled()">{{sys.bverb()}}</button>  
+  </div>
+</div>
